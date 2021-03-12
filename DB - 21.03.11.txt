@@ -1,0 +1,90 @@
+* 최종 수업 목표: 데이터 모델링을 보고, 주어진 조건을 만족하는 SQL을 작성 할 수 있다.
+                      JAVA 프로그램을 통해 SQL을 실행 할 수 있다.
+
+* cilent는 server에 요청을 함.
+  sourcetre(cilent) ==> git(server)
+  SQL developer(clinet) ==> oracle(DBMS)(server)
+
+*RAM은 휘발성이다. 전원이 꺼지면 자동적으로 저장이 되지 않음. 재사용을 위해서는 파일로 저장을 해야함.
+
+* SQL(Structured Query Language)
+- 구조화된 질의 언어
+- SQL은 Client다. 
+- SQL developer는 oracle server(DBMS: DataBase Management System)에서 데이터를 가져다 쓴다.
+- DBMS와 통신하기 위한 유일한 수단
+- 정형 데이터(ex: 엑셀-스프레드시트)      vs          비정형 데이터(ex: 음악, 동영상, 글)                     => 한 쪽이 우월한 개념 X, 목적에 따라 선택!
+ 안전성, 무결성                                     유연한 데이터 구조                                                  우리는 정형 데이터가 주
+ 데이터의 일치가 중요한 시스템                 하나 두개정도 누락되어도 문제 없는 데이터
+ (제조업, 금융, 회계 등)                           (센서자료, sns 분석, 통계치)
+                                                        속도가 더 빠름
+
+*SQL 특징
+- 일반적인 프로그래밍 언어와 다르게 로직이 없다. 절차적이지 않음!
+- 필요한 데이터의 집함을 SQL을 통해 표현. 해당 조건에 맞는 데이터는 DBMS가 알아서 찾음.
+
+* SQL 종류
+  DDL(Data Definition Language): 데이터 정의
+  DML(Data Manipulation Language): 데이터 조작(중요!) / CRUD(Create - Read - Update - Delete)
+  DCL(Data Control Language): 데이터 제어
+  TCL(Transaction Control Language): 트랜잭션 제어
+
+*  File                vs           DBMS
+데이터 중복                    데이터 중복 방지          
+복구 미흡                       백업/복구
+보안/공유 미흡                 보안/공유 
+프로그램이 파일에 종속      SQL 표준에 따른 프로그램 비종속
+
+* DBMS는 하나의 프로그램임.
+
+* 트랜잭션: 여러 단계의 과정을 하나의 작업 행위로 묶는 단위.(중요!)
+- 하나의 과정이 전체적으로 실행되던가 안되던가(All or Nothing)
+
+------------------------------------------------------------------------------------
+<개념정리>
+  * : 모든 컬럼
+  ex: SELECT * 
+       FROM A     ==> A테이블에 있는 모든 컬럼을 불러온다.
+  []: 없어도 되는 부분
+  일자 슬레시: 또는(or)
+
+--table space 생성
+SELECT *
+FROM DBA_DATA_FILES; (DBA_DATA_FILES에 있는 모든 컬럼을 불러온다.)
+
+CREATE TABLESPACE TS_DBSQL (TS_DBSQL이라는 저장공간을 만든다.)
+DATAFILE 'D:\B_UTIL\4.ORACLE\APP\ORACLE\ORADATA\XE\TS_DBSQL.DBF'(저장될 경로) 
+SIZE 100M (용랑은 100메가로 정함.)
+AUTOEXTEND ON; (용량이 초과되도 허용)
+
+
+--사용자 추가
+create user youngwoo identified by java (youngwoo라는 사용자를 만들고 비밀번호는 java로 한다.)
+default tablespace TS_DBSQL (테이블스페이스를 TS_DBSQL로 지정한다.)
+temporary tablespace temp (일시적으로 temp라는 테이블스페이스를 생성한다.)
+quota unlimited on TS_DBSQL (TS_DBSQL의 용량에 제한을 두지 않는다.)
+quota 0m on system; (system계정이 아니면 용량을 제한하겠다.)
+
+
+--접속, 생성권한
+GRANT CONNECT, RESOURCE TO youngwoo; (youngwoo에게 권한을 부여하겠다.)
+
+------------------------------------------------------------------------------------------
+
+<컬럼 외우기!>
+-- EMPNO: 직원번호, ENAME: 직원이름, JOB: 담당업무
+-- MGR: 상위 담당자, HIREDATE: 입사일자, SAL: 급여
+-- COMM: 상여금, DEPTNO: 부서번호              
+
+* SQL 공통사항
+- 대소문자를 가리지 않음.
+- 여러줄에 걸쳐 작성 가능 / 단 Keyword는 한줄에 표현! (ex: select, from 등)
+- SQL의 종료는 ;
+
+* TABLE
+- 데이터베이스에서 가장 많이 사용하는 객체
+- ROW(행):가로 / COL(열):세로
+
+------------------------------------------------------------------------------------------
+
+<수업시간 코딩>
+- keyword: 대문자 / 그외: 소문자

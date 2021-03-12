@@ -1,13 +1,13 @@
 -- 데이터 조회 방법
--- FORM: 데이터를 조회할 테이블 명시
+-- FORM: 데이터를 조회할 테이블 명시(가져올 데이터가 담긴 테이블 이름)
 -- SELECT: 조회하고자 하는 컬럼명(테이블에 존재하는 컬럼명)
 --         테이블의 모든 컬럼을 조회 할 경우 *를 기술
 
 SELECT empno,ename
-FROM EMP;
+FROM emp;
 
 SELECT *
-FROM EMP;
+FROM emp;
 -- EMPNO: 직원번호, ENAME: 직원이름, JOB: 담당업무
 -- MGR: 상위 담당자, HIREDATE: 입사일자, SAL: 급여
 -- COMM: 상여금, DEPTNO: 부서번호
